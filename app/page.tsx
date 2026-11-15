@@ -4,6 +4,10 @@ import StatCard from "@/components/dashboard/StatCard";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import SalesByCategory from "@/components/dashboard/SalesByCategory";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
+import CustomerGrowthChart from "@/components/dashboard/CustomerGrowthChart";
+import CustomerTypeChart from "@/components/dashboard/CustomerTypeChart";
+import AcquisitionCard from "@/components/dashboard/AcquisitionCard";
+import { acquisitionMetrics } from "@/data/customers";
 import { dashboardStats } from "@/data/dashboard";
 
 export default function Home() {
@@ -52,6 +56,38 @@ export default function Home() {
 
             {/* Recent Transactions */}
             <RecentTransactions />
+
+            {/* Customer Acquisition Metrics */}
+            <section className="mt-8">
+              <div className="mb-5">
+                <h2 className="text-lg font-bold text-foreground">
+                  Customer Acquisition
+                </h2>
+
+                <p className="mt-1 text-sm text-muted">
+                  Monitor customer acquisition and retention performance.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                {acquisitionMetrics.map((metric) => (
+                  <AcquisitionCard
+                    key={metric.title}
+                    {...metric}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-5">
+              <div className="xl:col-span-3">
+                <CustomerGrowthChart />
+              </div>
+
+              <div className="xl:col-span-2">
+                <CustomerTypeChart />
+              </div>
+            </div>
           </div>
         </section>
       </div>
