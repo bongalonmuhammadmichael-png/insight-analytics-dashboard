@@ -7,6 +7,8 @@ import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import CustomerGrowthChart from "@/components/dashboard/CustomerGrowthChart";
 import CustomerTypeChart from "@/components/dashboard/CustomerTypeChart";
 import AcquisitionCard from "@/components/dashboard/AcquisitionCard";
+import TopProductsChart from "@/components/dashboard/TopProductsChart";
+import ProductPerformanceTable from "@/components/dashboard/ProductPerformanceTable";
 import { acquisitionMetrics } from "@/data/customers";
 import { dashboardStats } from "@/data/dashboard";
 
@@ -77,6 +79,23 @@ export default function Home() {
                   />
                 ))}
               </div>
+            </section>
+
+            <br />
+            {/* Product Performance */}
+            <section className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-foreground">
+                  Product Analytics
+                </h2>
+                <p className="mt-1 text-sm text-muted">
+                  Understand which products generate the most revenue and sales.
+                </p>
+              </div>
+
+              <TopProductsChart />
+
+              <ProductPerformanceTable />
             </section>
 
             <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-5">
