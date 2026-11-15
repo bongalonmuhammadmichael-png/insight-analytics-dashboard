@@ -2,6 +2,8 @@ import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 import StatCard from "@/components/dashboard/StatCard";
 import RevenueChart from "@/components/dashboard/RevenueChart";
+import SalesByCategory from "@/components/dashboard/SalesByCategory";
+import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import { dashboardStats } from "@/data/dashboard";
 
 export default function Home() {
@@ -38,10 +40,18 @@ export default function Home() {
             </div>
 
             {/* Revenue Analytics */}
-            <div className="mt-8">
-              <RevenueChart />
+            <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-5">
+              <div className="xl:col-span-3">
+                <RevenueChart />
+              </div>
+
+              <div className="xl:col-span-2">
+                <SalesByCategory />
+              </div>
             </div>
 
+            {/* Recent Transactions */}
+            <RecentTransactions />
           </div>
         </section>
       </div>
