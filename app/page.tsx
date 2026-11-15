@@ -9,8 +9,15 @@ import CustomerTypeChart from "@/components/dashboard/CustomerTypeChart";
 import AcquisitionCard from "@/components/dashboard/AcquisitionCard";
 import TopProductsChart from "@/components/dashboard/TopProductsChart";
 import ProductPerformanceTable from "@/components/dashboard/ProductPerformanceTable";
+import OrderMetricCard from "@/components/dashboard/OrderMetricCard";
+import OrderTrendsChart from "@/components/dashboard/OrderTrendsChart";
+import OrderStatusChart from "@/components/dashboard/OrderStatusChart";
+import OrderRecordsTable from "@/components/dashboard/OrderRecordsTable";
+
+import { orderMetrics } from "@/data/orders";
 import { acquisitionMetrics } from "@/data/customers";
 import { dashboardStats } from "@/data/dashboard";
+
 
 export default function Home() {
   return (
@@ -96,6 +103,39 @@ export default function Home() {
               <TopProductsChart />
 
               <ProductPerformanceTable />
+            </section>
+
+            <br />
+            {/* Order Analytics */}
+            <section className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-foreground">
+                  Order Analytics
+                </h2>
+
+                <p className="mt-1 text-sm text-muted">
+                  Monitor order activity, fulfillment status, and sales performance.
+                </p>
+              </div>
+
+              {/* Order KPI Cards */}
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                {orderMetrics.map((metric) => (
+                  <OrderMetricCard
+                    key={metric.title}
+                    {...metric}
+                  />
+                ))}
+              </div>
+
+              {/* Order Charts */}
+              <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+                <OrderTrendsChart />
+                <OrderStatusChart />
+              </div>
+
+              {/* Recent Orders */}
+              <OrderRecordsTable />
             </section>
 
             <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-5">
