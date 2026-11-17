@@ -2,6 +2,7 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ComponentProps } from "react";
+import { DashboardFilterProvider } from "./DashboardFilterProvider";
 
 export default function ThemeProvider({
   children,
@@ -15,7 +16,9 @@ export default function ThemeProvider({
       disableTransitionOnChange
       {...props}
     >
-      {children}
+      <DashboardFilterProvider>
+        {children}
+      </DashboardFilterProvider>
     </NextThemesProvider>
   );
 }

@@ -1,7 +1,28 @@
+"use client";
+
 import { ArrowUpRight, ClipboardList } from "lucide-react";
+
 import { orderRecords } from "@/data/orders";
+import { useDashboardFilter } from "@/components/providers/DashboardFilterProvider";
+
+const statusStyles: Record<string, string> = {
+  Completed:
+    "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  Pending:
+    "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  Processing:
+    "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+  Cancelled:
+    "bg-red-500/10 text-red-600 dark:text-red-400",
+};
 
 export default function OrderRecordsTable() {
+  const { includesDate } = useDashboardFilter();
+
+  const filteredOrders = orderRecords.filter(
+    (order) => includesDate(order.date)
+  );
+
   return (
     <section className="overflow-hidden rounded-2xl border border-border bg-card">
       <div className="border-b border-border p-6">
@@ -27,19 +48,8 @@ export default function OrderRecordsTable() {
           </thead>
 
           <tbody className="divide-y divide-border">
-            {orderRecords.map((order) => {
-              const statusStyles: Record<string, string> = {
-                Completed:
-                  "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-                Pending:
-                  "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-                Processing:
-                  "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
-                Cancelled:
-                  "bg-red-500/10 text-red-600 dark:text-red-400",
-              };
-
-              return (
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
                 <tr
                   key={order.id}
                   className="transition-colors hover:bg-background/70"
@@ -74,8 +84,17 @@ export default function OrderRecordsTable() {
                     </span>
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-6 py-12 text-center text-sm text-muted"
+                >
+                  No orders found for this date range.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -83,7 +102,7 @@ export default function OrderRecordsTable() {
       <div className="flex items-center justify-between border-t border-border px-6 py-4">
         <div className="flex items-center gap-2 text-xs text-muted">
           <ClipboardList size={15} />
-          Showing {orderRecords.length} recent orders
+          Showing {filteredOrders.length} of {orderRecords.length} recent orders
         </div>
 
         <button

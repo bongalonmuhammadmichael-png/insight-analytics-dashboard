@@ -1,6 +1,9 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
 
 import { transactions } from "@/data/transactions";
+import { useDashboardFilter } from "@/components/providers/DashboardFilterProvider";
 
 const statusStyles: Record<string, string> = {
   Completed:
@@ -12,6 +15,12 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function RecentTransactions() {
+  const { includesDate } = useDashboardFilter();
+
+  const filteredTransactions = transactions.filter(
+    (transaction) => includesDate(transaction.date)
+  );
+
   return (
     <section className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
       <div className="flex flex-col gap-3 border-b border-border p-6 sm:flex-row sm:items-center sm:justify-between">
@@ -19,6 +28,7 @@ export default function RecentTransactions() {
           <h2 className="text-lg font-bold text-foreground">
             Recent Transactions
           </h2>
+
           <p className="mt-1 text-sm text-muted">
             A summary of your latest customer orders.
           </p>
@@ -37,18 +47,23 @@ export default function RecentTransactions() {
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Transaction
               </th>
+
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Customer
               </th>
+
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Product
               </th>
+
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Date
               </th>
+
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Amount
               </th>
+
               <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 Status
               </th>
@@ -56,50 +71,61 @@ export default function RecentTransactions() {
           </thead>
 
           <tbody className="divide-y divide-border">
-            {transactions.map((transaction) => (
-              <tr
-                key={transaction.id}
-                className="transition hover:bg-background/50"
-              >
-                <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-primary">
-                  {transaction.id}
-                </td>
+            {filteredTransactions.length > 0 ? (
+              filteredTransactions.map((transaction) => (
+                <tr
+                  key={transaction.id}
+                  className="transition hover:bg-background/50"
+                >
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-primary">
+                    {transaction.id}
+                  </td>
 
-                <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-foreground">
-                  {transaction.customer}
-                </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-foreground">
+                    {transaction.customer}
+                  </td>
 
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-muted">
-                  {transaction.product}
-                </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm text-muted">
+                    {transaction.product}
+                  </td>
 
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-muted">
-                  {transaction.date}
-                </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm text-muted">
+                    {transaction.date}
+                  </td>
 
-                <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold text-foreground">
-                  ${transaction.amount.toFixed(2)}
-                </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold text-foreground">
+                    ${transaction.amount.toFixed(2)}
+                  </td>
 
-                <td className="whitespace-nowrap px-6 py-4">
-                  <span
-                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                      statusStyles[transaction.status] ??
-                      "bg-gray-100 text-gray-700 dark:bg-gray-500/10 dark:text-gray-400"
-                    }`}
-                  >
-                    {transaction.status}
-                  </span>
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <span
+                      className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                        statusStyles[transaction.status] ??
+                        "bg-gray-100 text-gray-700 dark:bg-gray-500/10 dark:text-gray-400"
+                      }`}
+                    >
+                      {transaction.status}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="px-6 py-12 text-center text-sm text-muted"
+                >
+                  No transactions found for this date range.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
       <div className="border-t border-border px-6 py-4">
         <p className="text-xs text-muted">
-          Showing {transactions.length} recent transactions
+          Showing {filteredTransactions.length} of {transactions.length} recent transactions
         </p>
       </div>
     </section>

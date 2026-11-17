@@ -1,15 +1,31 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   Search,
   Bell,
   CalendarDays,
   ChevronDown,
+  Check,
 } from "lucide-react";
 
 import ThemeToggle from "./ThemeToggle";
+import { useDashboardFilter } from "@/components/providers/DashboardFilterProvider";
+
+const dateOptions = [
+  { label: "Last 7 days", value: "7days" },
+  { label: "Last 30 days", value: "30days" },
+  { label: "Last 90 days", value: "90days" },
+  { label: "All time", value: "all" },
+] as const;
 
 export default function Header() {
+  const [isDateMenuOpen, setIsDateMenuOpen] = useState(false);
+
+  const { selectedRange, setSelectedRange, rangeLabel } =
+    useDashboardFilter();
+
   return (
     <header className="flex min-h-20 items-center justify-between gap-6 border-b border-border bg-card px-8 py-4">
       {/* Page heading */}
@@ -42,14 +58,58 @@ export default function Header() {
         </div>
 
         {/* Date selector */}
-        <button
-          type="button"
-          className="hidden items-center gap-2 rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-foreground transition hover:bg-background lg:flex"
-        >
-          <CalendarDays size={17} className="text-muted" />
-          <span>Last 30 days</span>
-          <ChevronDown size={15} className="text-muted" />
-        </button>
+        <div className="relative hidden lg:block">
+          <button
+            type="button"
+            aria-label="Select dashboard date range"
+            aria-expanded={isDateMenuOpen}
+            onClick={() =>
+              setIsDateMenuOpen((previous) => !previous)
+            }
+            className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-foreground transition hover:bg-background"
+          >
+            <CalendarDays size={17} className="text-muted" />
+
+            <span>{rangeLabel}</span>
+
+            <ChevronDown
+              size={15}
+              className={`text-muted transition-transform ${
+                isDateMenuOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {isDateMenuOpen && (
+            <div className="absolute right-0 top-full z-50 mt-2 w-48 overflow-hidden rounded-xl border border-border bg-card p-1 shadow-xl">
+              {dateOptions.map((option) => {
+                const isSelected =
+                  selectedRange === option.value;
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      setSelectedRange(option.value);
+                      setIsDateMenuOpen(false);
+                    }}
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm text-foreground transition hover:bg-background"
+                  >
+                    <span>{option.label}</span>
+
+                    {isSelected && (
+                      <Check
+                        size={16}
+                        className="text-indigo-500"
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
         {/* Theme toggle */}
         <ThemeToggle />
@@ -78,6 +138,7 @@ export default function Header() {
             <p className="text-sm font-semibold text-foreground">
               Mustafa
             </p>
+
             <p className="text-xs text-muted">
               Administrator
             </p>
