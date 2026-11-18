@@ -1,4 +1,3 @@
-
 export const transactions = [
   {
     id: "TRX-2026-001",
@@ -6,6 +5,7 @@ export const transactions = [
     product: "Wireless Headphones",
     date: "Nov 15, 2026",
     amount: 249.00,
+    paymentMethod: "Credit Card",
     status: "Completed",
   },
   {
@@ -14,6 +14,7 @@ export const transactions = [
     product: "Smart Watch",
     date: "Nov 14, 2026",
     amount: 189.00,
+    paymentMethod: "PayPal",
     status: "Pending",
   },
   {
@@ -22,6 +23,7 @@ export const transactions = [
     product: "Leather Backpack",
     date: "Nov 14, 2026",
     amount: 125.50,
+    paymentMethod: "Bank Transfer",
     status: "Completed",
   },
   {
@@ -30,6 +32,7 @@ export const transactions = [
     product: "Running Shoes",
     date: "Nov 13, 2026",
     amount: 98.00,
+    paymentMethod: "Credit Card",
     status: "Processing",
   },
   {
@@ -38,6 +41,52 @@ export const transactions = [
     product: "Skin Care Set",
     date: "Nov 12, 2026",
     amount: 76.00,
+    paymentMethod: "PayPal",
     status: "Completed",
+  },
+  {
+    id: "TRX-2026-006",
+    customer: "Natali Craig",
+    product: "Desk Lamp",
+    date: "Nov 11, 2026",
+    amount: 145.00,
+    paymentMethod: "Credit Card",
+    status: "Failed",
+  },
+  {
+    id: "TRX-2026-007",
+    customer: "Drew Cano",
+    product: "Running Shoes",
+    date: "Nov 10, 2026",
+    amount: 89.99,
+    paymentMethod: "Bank Transfer",
+    status: "Completed",
+  },
+  {
+    id: "TRX-2026-008",
+    customer: "Orlando Diggs",
+    product: "Leather Backpack",
+    date: "Nov 09, 2026",
+    amount: 199.99,
+    paymentMethod: "PayPal",
+    status: "Processing",
+  },
+  {
+    id: "TRX-2026-009",
+    customer: "Olivia Rhye",
+    product: "Smart Watch",
+    date: "Nov 08, 2026",
+    amount: 299.00,
+    paymentMethod: "Credit Card",
+    status: "Completed",
+  },
+  {
+    id: "TRX-2026-010",
+    customer: "Phoenix Baker",
+    product: "Skin Care Set",
+    date: "Nov 07, 2026",
+    amount: 59.99,
+    paymentMethod: "Bank Transfer",
+    status: "Pending",
   },
 ];
