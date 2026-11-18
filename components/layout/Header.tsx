@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import {
   Search,
@@ -20,11 +21,24 @@ const dateOptions = [
   { label: "All time", value: "all" },
 ] as const;
 
+const pageTitles: Record<string, string> = {
+  "/": "Overview",
+  "/customers": "Customers",
+  "/products": "Products",
+  "/transactions": "Transactions",
+  "/reports": "Reports",
+  "/settings": "Settings",
+};
+
 export default function Header() {
   const [isDateMenuOpen, setIsDateMenuOpen] = useState(false);
 
+  const pathname = usePathname();
+
   const { selectedRange, setSelectedRange, rangeLabel } =
     useDashboardFilter();
+
+  const pageTitle = pageTitles[pathname] ?? "INSIGHT";
 
   return (
     <header className="flex min-h-20 items-center justify-between gap-6 border-b border-border bg-card px-8 py-4">
@@ -35,7 +49,7 @@ export default function Header() {
         </p>
 
         <h1 className="mt-1 text-xl font-bold text-foreground">
-          Overview
+          {pageTitle}
         </h1>
       </div>
 

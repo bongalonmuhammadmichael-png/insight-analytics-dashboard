@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   LayoutDashboard,
   Users,
@@ -13,14 +16,16 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { name: "Overview", icon: LayoutDashboard, active: true },
-  { name: "Customers", icon: Users, active: false },
-  { name: "Products", icon: Package, active: false },
-  { name: "Transactions", icon: Receipt, active: false },
-  { name: "Reports", icon: ChartNoAxesCombined, active: false },
+  { name: "Overview", href: "/", icon: LayoutDashboard },
+  { name: "Customers", href: "/customers", icon: Users },
+  { name: "Products", href: "/products", icon: Package },
+  { name: "Transactions", href: "/transactions", icon: Receipt },
+  { name: "Reports", href: "/reports", icon: ChartNoAxesCombined },
 ];
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="flex h-screen w-64 shrink-0 flex-col bg-sidebar px-5 py-6 text-white">
       {/* Brand */}
@@ -57,33 +62,45 @@ export default function Sidebar() {
         {navigation.map((item) => {
           const Icon = item.icon;
 
+          const isActive =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname === item.href ||
+                pathname.startsWith(`${item.href}/`);
+
           return (
-            <a
+            <Link
               key={item.name}
-              href="#"
-              aria-current={item.active ? "page" : undefined}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
               className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors ${
-                item.active
+                isActive
                   ? "bg-primary text-white shadow-lg shadow-indigo-950/20"
                   : "text-slate-400 hover:bg-slate-800 hover:text-white"
               }`}
             >
               <Icon size={19} />
               <span>{item.name}</span>
-            </a>
+            </Link>
           );
         })}
       </nav>
 
       {/* Bottom section */}
       <div className="border-t border-slate-700 pt-5">
-        <a
-          href="#"
-          className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
+        <Link
+          href="/settings"
+          aria-current={pathname === "/settings" ? "page" : undefined}
+          className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors ${
+            pathname === "/settings" ||
+            pathname.startsWith("/settings/")
+              ? "bg-primary text-white"
+              : "text-slate-400 hover:bg-slate-800 hover:text-white"
+          }`}
         >
           <Settings size={19} />
           <span>Settings</span>
-        </a>
+        </Link>
 
         {/* User profile */}
         <button

@@ -6,6 +6,9 @@ export const productPerformanceData = [
     revenue: 18450,
     unitsSold: 185,
     growth: 18.5,
+    price: 149.99,
+    stock: 42,
+    status: "In Stock",
   },
   {
     id: "PRD-002",
@@ -14,6 +17,9 @@ export const productPerformanceData = [
     revenue: 15200,
     unitsSold: 160,
     growth: 14.2,
+    price: 199.99,
+    stock: 8,
+    status: "Low Stock",
   },
   {
     id: "PRD-003",
@@ -22,6 +28,9 @@ export const productPerformanceData = [
     revenue: 12800,
     unitsSold: 128,
     growth: 11.8,
+    price: 99.99,
+    stock: 0,
+    status: "Out of Stock",
   },
   {
     id: "PRD-004",
@@ -30,6 +39,9 @@ export const productPerformanceData = [
     revenue: 10950,
     unitsSold: 150,
     growth: 9.6,
+    price: 89.99,
+    stock: 35,
+    status: "In Stock",
   },
   {
     id: "PRD-005",
@@ -38,6 +50,9 @@ export const productPerformanceData = [
     revenue: 8950,
     unitsSold: 179,
     growth: 8.4,
+    price: 49.99,
+    stock: 12,
+    status: "Low Stock",
   },
   {
     id: "PRD-006",
@@ -46,6 +61,9 @@ export const productPerformanceData = [
     revenue: 7200,
     unitsSold: 90,
     growth: 6.7,
+    price: 79.99,
+    stock: 56,
+    status: "In Stock",
   },
 ];
 

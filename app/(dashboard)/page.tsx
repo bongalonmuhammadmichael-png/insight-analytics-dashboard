@@ -1,4 +1,3 @@
-
 import StatCard from "@/components/dashboard/StatCard";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import SalesByCategory from "@/components/dashboard/SalesByCategory";
