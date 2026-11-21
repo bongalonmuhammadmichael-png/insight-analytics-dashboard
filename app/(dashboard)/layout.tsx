@@ -9,7 +9,7 @@ export default function DashboardLayout({
   children: ReactNode;
 }) {
   return (
-    <main className="flex min-h-screen bg-background text-foreground">
+    <main className="relative flex min-h-screen bg-background text-foreground">
       {/* Sidebar */}
       <Sidebar />
 
@@ -18,7 +18,7 @@ export default function DashboardLayout({
         <Header />
 
         {/* Page content */}
-        <section className="flex-1 p-8">
+        <section className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
           {children}
         </section>
       </div>

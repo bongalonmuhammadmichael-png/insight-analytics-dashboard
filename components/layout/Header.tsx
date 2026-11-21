@@ -41,10 +41,10 @@ export default function Header() {
   const pageTitle = pageTitles[pathname] ?? "INSIGHT";
 
   return (
-    <header className="flex min-h-20 items-center justify-between gap-6 border-b border-border bg-card px-8 py-4">
+    <header className="flex min-h-20 items-center justify-between gap-2 border-b border-border bg-card pl-16 pr-4 py-4 sm:gap-4 sm:pl-16 sm:pr-6 lg:gap-6 lg:px-8">
       {/* Page heading */}
       <div className="min-w-0">
-        <p className="text-sm text-muted">
+        <p className="hidden text-sm text-muted sm:block">
           Welcome back, Mustafa 👋
         </p>
 
@@ -54,7 +54,7 @@ export default function Header() {
       </div>
 
       {/* Header actions */}
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-4">
         {/* Search */}
         <div className="hidden w-64 items-center gap-2 rounded-xl border border-border bg-background px-3 py-2.5 md:flex">
           <Search size={18} className="shrink-0 text-muted" />
